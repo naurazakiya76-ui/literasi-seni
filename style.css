@@ -66,5 +66,6 @@ button {
 .container h2,
 .container h3,
 .container p,
-.container div 
+.container div {
   color: #222;
+}
