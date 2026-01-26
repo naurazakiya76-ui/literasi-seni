@@ -61,3 +61,10 @@ button {
 .biru { background:#4da3ff;color:white; }
 .pink { background:#ff7eb9;color:white; }
 .hijau { background:#4caf50;color:white; }
+/* FIX WARNA TEKS SOAL */
+.container h1,
+.container h2,
+.container h3,
+.container p,
+.container div 
+  color: #222;
