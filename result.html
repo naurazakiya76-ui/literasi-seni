@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Akhir</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Hasil Akhir</h1>
+    <p id="score"></p>
+    <button onclick="location.href='index.html'">Ulangi</button>
+  </div>
+
+  <script>
+    document.getElementById("score").innerText =
+      "Total poin kamu: " + localStorage.getItem("finalScore");
+  </script>
+</body>
+</html>
