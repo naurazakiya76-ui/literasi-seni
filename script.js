@@ -99,7 +99,7 @@ function checkAnswer(selected) {
     score += time <= 180 ? 25 : 15;
   }
 
-  if (correctCount >= 5) {
+  if (correctCount >= 10) {
     localStorage.setItem("finalScore", score);
     location.href = "result.html";
   } else {
