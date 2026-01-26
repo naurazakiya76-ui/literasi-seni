@@ -2,59 +2,110 @@ const theme = localStorage.getItem("theme");
 if (theme) document.body.classList.add(theme);
 
 let score = 0;
-let correct = 0;
-let timer = 0;
-let interval;
+let correctCount = 0;
+let time = 0;
+let timerInterval;
+let usedQuestions = [];
 
+/* ===== BANK SOAL (CONTOH 3, NANTI KAMU TAMBAH SAMPAI 30) ===== */
 const questions = [
   {
-    passage: "Seni kriya adalah cabang seni rupa yang menekankan keterampilan tangan.",
-    question: "Apa fokus utama seni kriya?",
+    passage: "Seni kriya merupakan cabang seni rupa yang menekankan keterampilan tangan dan fungsi.",
+    question: "Apa fokus utama dari seni kriya?",
     options: [
-      "Teknologi digital",
+      "Keindahan digital",
       "Keterampilan tangan",
-      "Efek suara",
-      "Gerak tubuh"
+      "Gerak tari",
+      "Nada dan irama"
+    ],
+    answer: 1
+  },
+  {
+    passage: "Anyaman adalah salah satu contoh seni kriya yang banyak ditemukan di Indonesia.",
+    question: "Bahan yang umum digunakan dalam seni anyaman adalah …",
+    options: [
+      "Plastik dan kaca",
+      "Bambu dan rotan",
+      "Besi dan baja",
+      "Tanah liat"
+    ],
+    answer: 1
+  },
+  {
+    passage: "Seni kriya tidak hanya memiliki nilai estetika tetapi juga nilai fungsi.",
+    question: "Nilai fungsi dalam seni kriya berarti …",
+    options: [
+      "Hanya untuk dipajang",
+      "Memiliki kegunaan",
+      "Tidak boleh digunakan",
+      "Bersifat abstrak"
     ],
     answer: 1
   }
 ];
 
-function startTimer(){
-  timer = 0;
+/* ===== TIMER ===== */
+function startTimer() {
+  time = 0;
   document.getElementById("timer").innerText = "Waktu: 0";
-  interval = setInterval(()=>{
-    timer++;
-    document.getElementById("timer").innerText = "Waktu: " + timer;
-  },1000);
+  timerInterval = setInterval(() => {
+    time++;
+    document.getElementById("timer").innerText = "Waktu: " + time;
+  }, 1000);
 }
 
-function loadQuestion(){
+/* ===== AMBIL SOAL ACAK YANG BELUM DIPAKAI ===== */
+function getRandomQuestion() {
+  if (usedQuestions.length === questions.length) {
+    usedQuestions = [];
+  }
+
+  let index;
+  do {
+    index = Math.floor(Math.random() * questions.length);
+  } while (usedQuestions.includes(index));
+
+  usedQuestions.push(index);
+  return questions[index];
+}
+
+let currentQuestion;
+
+/* ===== TAMPILKAN SOAL ===== */
+function loadQuestion() {
   startTimer();
-  const q = questions[0];
-  document.getElementById("passage").innerText = q.passage;
-  document.getElementById("question").innerText = q.question;
+  currentQuestion = getRandomQuestion();
 
-  const opt = document.getElementById("options");
-  opt.innerHTML = "";
+  document.getElementById("passage").innerText = currentQuestion.passage;
+  document.getElementById("question").innerText = currentQuestion.question;
 
-  q.options.forEach((o,i)=>{
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+
+  currentQuestion.options.forEach((opt, i) => {
     const btn = document.createElement("button");
-    btn.innerText = o;
-    btn.onclick = ()=>checkAnswer(i === q.answer);
-    opt.appendChild(btn);
+    btn.innerText = opt;
+    btn.onclick = () => checkAnswer(i);
+    optionsDiv.appendChild(btn);
   });
 }
 
-function checkAnswer(correctAnswer){
-  clearInterval(interval);
-  if(correctAnswer){
-    correct++;
-    score += timer <= 180 ? 25 : 15;
+/* ===== CEK JAWABAN ===== */
+function checkAnswer(selected) {
+  clearInterval(timerInterval);
+
+  if (selected === currentQuestion.answer) {
+    correctCount++;
+    score += time <= 180 ? 25 : 15;
   }
 
-  localStorage.setItem("finalScore", score);
-  location.href = "result.html";
+  if (correctCount >= 5) {
+    localStorage.setItem("finalScore", score);
+    location.href = "result.html";
+  } else {
+    loadQuestion();
+  }
 }
 
+/* ===== MULAI ===== */
 loadQuestion();
