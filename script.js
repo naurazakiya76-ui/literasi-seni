@@ -10,15 +10,15 @@ let usedQuestions = [];
 /* ===== BANK SOAL (CONTOH 3, NANTI KAMU TAMBAH SAMPAI 30) ===== */
 const questions = [
   {
-    passage: "Seni kriya merupakan cabang seni rupa yang menekankan keterampilan tangan dan fungsi.",
-    question: "Apa fokus utama dari seni kriya?",
+    passage: "Seni rupa dua dimensi adalah karya seni yang hanya memiliki panjang dan lebar. Karya ini biasanya dinikmati dari satu arah pandang saja, seperti lukisan dan gambar.",
+    question: "Berdasarkan bacaan, ciri utama seni rupa dua dimensi adalah?",
     options: [
-      "Keindahan digital",
-      "Keterampilan tangan",
-      "Gerak tari",
-      "Nada dan irama"
+      "Memiliki volume",
+      "Memiliki panjang,lebar,dan tinggi",
+      "Hanya memiliki panjang dan lebar",
+      "Dapat dinikmati dari berbagai sudut"
     ],
-    answer: 1
+    answer: 3
   },
   {
     passage: "Anyaman adalah salah satu contoh seni kriya yang banyak ditemukan di Indonesia.",
