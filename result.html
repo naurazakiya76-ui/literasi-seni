@@ -1,20 +1,47 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Hasil Akhir</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Hasil Akhir</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="container">
-    <h1>Hasil Akhir</h1>
-    <p id="score"></p>
-    <button onclick="location.href='index.html'">Ulangi</button>
-  </div>
 
-  <script>
-    document.getElementById("score").innerText =
-      "Total poin kamu: " + localStorage.getItem("finalScore");
-  </script>
+<body>
+
+<div class="container">
+<h1>🎉 Kuis Selesai!</h1>
+
+<h2 id="skor"></h2>
+
+<p id="pesan"></p>
+
+<button onclick="location.href='index.html'">
+Main Lagi
+</button>
+</div>
+
+<script>
+let nilai = localStorage.getItem("finalScore");
+
+document.getElementById("skor").innerText =
+"Skor akhir kamu: " + nilai;
+
+/* PESAN BERDASARKAN SKOR */
+let pesan = "";
+
+if(nilai >= 200){
+  pesan = "Luar biasa! Literasi seni kamu sangat kuat 🎨";
+}
+else if(nilai >= 150){
+  pesan = "Bagus sekali! Pemahamanmu tentang seni kriya sudah baik 👍";
+}
+else{
+  pesan = "Tetap semangat belajar seni dan budaya ya 🌱";
+}
+
+document.getElementById("pesan").innerText = pesan;
+</script>
+
 </body>
 </html>
+
