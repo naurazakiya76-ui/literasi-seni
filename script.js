@@ -237,7 +237,7 @@ answer:0
 
 ];
 questions.push({
-passage: "Seni kriya ke-" + i + " menjelaskan bahwa karya kriya memiliki nilai estetika dan fungsi praktis dalam kehidupan masyarakat serta mencerminkan identitas budaya.",
+passage: "Nomor " + i + " menjelaskan bahwa karya kriya memiliki nilai estetika dan fungsi praktis dalam kehidupan masyarakat serta mencerminkan identitas budaya.",
 question: "Apa karakter utama seni kriya berdasarkan bacaan tersebut?",
 options: [
 "Mengutamakan fungsi dan estetika",
