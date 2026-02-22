@@ -1,75 +1,55 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
-  background-image: url("images/bg-seni.jpg");
-  background-size: cover;
-  background-position: center;
-  transition: background 0.6s ease;
-  display:flex;
+body{
+margin:0;
+font-family:Arial;
+background:url("images/bg-seni.jpg") center/cover;
+min-height:100vh;
+display:flex;
 justify-content:center;
 align-items:center;
-
 }
 
-/* OVERLAY */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: transparent;
-  z-index: 0;
-  pointer-events: none;
-  transition: background 0.6s ease;
+body::before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
 }
 
-/* TEMA WARNA */
-body.ungu::before {
-  background: rgba(123, 78, 255, 0.45);
-}
-body.biru::before {
-  background: rgba(77, 163, 255, 0.45);
-}
-body.pink::before {
-  background: rgba(255, 126, 185, 0.45);
-}
-body.hijau::before {
-  background: rgba(76, 175, 80, 0.45);
+body.ungu::before{background:rgba(120,0,255,.3);}
+body.biru::before{background:rgba(0,140,255,.3);}
+body.pink::before{background:rgba(255,0,120,.3);}
+body.hijau::before{background:rgba(0,180,90,.3);}
+
+.container{
+background:white;
+padding:25px;
+max-width:700px;
+border-radius:15px;
+text-align:center;
+z-index:1;
 }
 
-/* KONTEN */
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 24px;
-  background: rgba(255,255,255,0.92);
-  border-radius: 18px;
+button{
+padding:10px 15px;
+margin:5px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
 }
 
-/* BUTTON */
-button {
-  padding: 12px 18px;
-  border-radius: 14px;
-  border: none;
-  margin: 6px;
-  font-weight: bold;
-}
-
-.ungu { background:#7b4eff;color:white; }
-.biru { background:#4da3ff;color:white; }
-.pink { background:#ff7eb9;color:white; }
-.hijau { background:#4caf50;color:white; }
-/* FIX WARNA TEKS SOAL */
-.container h1,
-.container h2,
-.container h3,
-.container p,
-.container div {
-  color: #222;
+.timer{
+position:fixed;
+top:20px;
+right:20px;
+width:80px;
+height:80px;
+background:#ff4d4d;
+color:white;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:24px;
+font-weight:bold;
 }
