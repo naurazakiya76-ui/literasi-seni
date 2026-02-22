@@ -16,66 +16,39 @@ display:flex;
 justify-content:center;
 align-items:center;
 color:white;
+overflow:hidden;
 }
 
-/* START SCREEN */
-.start-screen{
-text-align:center;
+.screen{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+opacity:0;
+pointer-events:none;
+transition:0.5s;
 }
 
-.start-screen h1{
-font-size:40px;
-margin-bottom:30px;
+.screen.active{
+opacity:1;
+pointer-events:auto;
 }
 
-.start-screen button{
-padding:15px 40px;
-font-size:20px;
-border:none;
-border-radius:12px;
-background:#6c5ce7;
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
-
-.start-screen button:hover{
-background:#4834d4;
-transform:scale(1.05);
-}
-
-/* QUIZ CONTAINER */
-.container{
-width:90%;
-max-width:800px;
-padding:50px;
-border-radius:25px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(20px);
-box-shadow:0 25px 60px rgba(0,0,0,0.5);
-text-align:center;
-}
-
-#passage{
-font-size:22px;
-line-height:1.8;
-margin-bottom:30px;
-}
-
-#question{
-font-size:28px;
+h1{
+font-size:42px;
 margin-bottom:30px;
 }
 
 button{
-width:100%;
-padding:16px;
-margin:12px 0;
+padding:15px 40px;
+font-size:18px;
 border:none;
-border-radius:14px;
+border-radius:12px;
 background:#6c5ce7;
 color:white;
-font-size:18px;
 cursor:pointer;
 transition:0.3s;
 }
@@ -85,10 +58,50 @@ background:#4834d4;
 transform:scale(1.05);
 }
 
+.container{
+width:90%;
+max-width:800px;
+padding:40px;
+border-radius:25px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+box-shadow:0 25px 60px rgba(0,0,0,0.5);
+text-align:center;
+}
+
+#passage{
+font-size:20px;
+margin-bottom:25px;
+line-height:1.7;
+}
+
+#question{
+font-size:26px;
+margin-bottom:25px;
+}
+
+#options button{
+width:100%;
+margin:10px 0;
+}
+
 .timer-wrapper{
 position:fixed;
-top:25px;
-right:25px;
-width:100px;
-height:100px;
+top:20px;
+right:20px;
+opacity:0;
+transition:0.5s;
+}
+
+.timer-wrapper.active{
+opacity:1;
+}
+
+#timerText{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-weight:bold;
+font-size:28px;
 }
