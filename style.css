@@ -8,8 +8,9 @@ body{
 font-family:'Poppins', sans-serif;
 height:100vh;
 background:
-linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-url("https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=2070") no-repeat center center fixed;
+linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+url("https://images.unsplash.com/photo-1513475382585-d06e58bcb0f0?q=80&w=2070&auto=format&fit=crop")
+no-repeat center center fixed;
 background-size:cover;
 display:flex;
 justify-content:center;
@@ -17,6 +18,33 @@ align-items:center;
 color:white;
 }
 
+/* START SCREEN */
+.start-screen{
+text-align:center;
+}
+
+.start-screen h1{
+font-size:40px;
+margin-bottom:30px;
+}
+
+.start-screen button{
+padding:15px 40px;
+font-size:20px;
+border:none;
+border-radius:12px;
+background:#6c5ce7;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.start-screen button:hover{
+background:#4834d4;
+transform:scale(1.05);
+}
+
+/* QUIZ CONTAINER */
 .container{
 width:90%;
 max-width:800px;
@@ -57,31 +85,10 @@ background:#4834d4;
 transform:scale(1.05);
 }
 
-#progress{
-margin-top:20px;
-font-size:18px;
-}
-
 .timer-wrapper{
 position:fixed;
 top:25px;
 right:25px;
 width:100px;
 height:100px;
-}
-
-.timer-wrapper svg{
-position:absolute;
-top:0;
-left:0;
-}
-
-#timerText{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-font-weight:bold;
-font-size:30px;
-color:white;
 }
