@@ -26,23 +26,23 @@ text-align:center;
 position:relative;
 }
 
-.timer{
-position:fixed;
-top:20px;
-right:20px;
-width:70px;
-height:70px;
-border-radius:50%;
-background:crimson;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:22px;
-font-weight:bold
-z-index: 1;
-pointer-events: none;
-}
+<div class="timer">
+<svg width="80" height="80">
+<circle cx="40" cy="40" r="35" stroke="#eee" stroke-width="6" fill="none"/>
+<circle id="progressCircle"
+cx="40" cy="40" r="35"
+stroke="crimson"
+stroke-width="6"
+fill="none"
+stroke-dasharray="220"
+stroke-dashoffset="0"
+transform="rotate(-90 40 40)"/>
+</svg>
+<div id="timerText"
+style="position:absolute; top:28px; left:50%; transform:translateX(-50%); font-weight:bold;">
+30
+</div>
+</div>
 
 button{
 margin:8px 0;
