@@ -1,86 +1,12 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kuis 30 Detik</title>
-
-<style>
-.timer-wrapper{
-position:fixed;
-top:20px;
-right:20px;
-width:90px;
-height:90px;
-}
-
-.timer-wrapper svg{
-position:absolute;
-top:0;
-left:0;
-}
-
-#timerText{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-font-weight:bold;
-font-size:20px;
-}
-
-.container{
-max-width:700px;
-margin:120px auto;
-padding:30px;
-border-radius:20px;
-background:rgba(255,255,255,0.15);
-backdrop-filter:blur(12px);
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-color:#222;
-text-align:center;
-}
-
-<div class="timer">
-<svg width="80" height="80">
-<circle cx="40" cy="40" r="35" stroke="#eee" stroke-width="6" fill="none"/>
-<circle id="progressCircle"
-cx="40" cy="40" r="35"
-stroke="crimson"
-stroke-width="6"
-fill="none"
-stroke-dasharray="220"
-stroke-dashoffset="0"
-transform="rotate(-90 40 40)"/>
-</svg>
-<div id="timerText"
-style="position:absolute; top:28px; left:50%; transform:translateX(-50%); font-weight:bold;">
-30
-</div>
-</div>
-
-button{
-margin:8px 0;
-padding:12px;
-width:100%;
-border:none;
-border-radius:10px;
-cursor:pointer;
-font-size:14px;
-background:#2c3e50;
-color:white;
-transition:0.2s;
-}
-
-button:hover{
-background:#34495e;
-transform:scale(1.02);
-}
-*{background-color:transparent !important;}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
 <div class="timer-wrapper">
   <svg width="90" height="90">
     <circle cx="45" cy="45" r="40"
@@ -98,24 +24,16 @@ transform:scale(1.02);
       stroke-dashoffset="0"
       transform="rotate(-90 45 45)"/>
   </svg>
-
   <div id="timerText">30</div>
 </div>
-<div class="timer" id="timer">30</div>
 
 <div class="container">
-
-<h2>Kuis Cepat 30 Detik</h2>
-  
-<button id="startBtn" onclick="startQuiz()">Mulai Kuis</button>
-<p id="passage"></p>
-<h3 id="question"></h3>
-<div id="options"></div>
-<p id="progress"></p>
-
+  <p id="passage"></p>
+  <h3 id="question"></h3>
+  <div id="options"></div>
+  <p id="progress"></p>
 </div>
 
 <script src="script.js"></script>
-
 </body>
-  </html>
+</html>
