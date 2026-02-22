@@ -45,7 +45,7 @@ score=0;
 answered=0;
 timeLeft=30;
 
-document.getElementById("timer").textContent=timeLeft;
+document.getElementById("startBtn").style.display="none";
 
 startTimer();
 showQuestion();
