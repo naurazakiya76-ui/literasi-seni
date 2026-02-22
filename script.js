@@ -1,3 +1,7 @@
+
+
+alert("JS Terhubung");
+
 const questions = [
 {
 passage:"Seni kriya adalah karya seni rupa terapan yang mengutamakan keterampilan tangan dan nilai fungsi.",
@@ -21,17 +25,11 @@ answer:2
 
 let currentIndex = 0;
 let score = 0;
-let timeLeft = 30;
-let timerInterval;
 
 function startQuiz(){
-
 document.getElementById("startScreen").classList.remove("active");
 document.getElementById("quizScreen").classList.add("active");
-document.querySelector(".timer-wrapper").classList.add("active");
-
 showQuestion();
-startTimer();
 }
 
 function showQuestion(){
@@ -72,33 +70,9 @@ finishQuiz();
 }
 }
 
-function startTimer(){
-
-const circle = document.getElementById("progressCircle");
-const total = 30;
-const circumference = 283;
-
-timerInterval = setInterval(function(){
-
-timeLeft--;
-document.getElementById("timerText").textContent = timeLeft;
-
-let offset = circumference - (timeLeft/total)*circumference;
-circle.style.strokeDashoffset = offset;
-
-if(timeLeft <= 0){
-finishQuiz();
-}
-
-},1000);
-}
-
 function finishQuiz(){
 
-clearInterval(timerInterval);
-
 document.getElementById("quizScreen").classList.remove("active");
-document.querySelector(".timer-wrapper").classList.remove("active");
 document.getElementById("resultScreen").classList.add("active");
 
 document.getElementById("finalScore").textContent =
@@ -107,4 +81,4 @@ document.getElementById("finalScore").textContent =
 
 function restartQuiz(){
 location.reload();
-}
+  }
