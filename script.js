@@ -236,18 +236,7 @@ answer:0
 }
 
 ];
-questions.push({
-passage: "Soal Ke- " + i + " menjelaskan bahwa karya kriya memiliki nilai estetika dan fungsi praktis dalam kehidupan masyarakat serta mencerminkan identitas budaya.",
-question: "Apa karakter utama seni kriya berdasarkan bacaan tersebut?",
-options: [
-"Mengutamakan fungsi dan estetika",
-"Hanya untuk dekorasi",
-"Tidak memiliki nilai budaya",
-"Produk pabrik modern"
-],
-answer: 0
-});
-}
+
 
 /* =========================
    TIMER GLOBAL BERDASARKAN REAL TIME
