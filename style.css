@@ -1,55 +1,78 @@
-body{
+*{
 margin:0;
-font-family:Arial;
-background:url("images/bg-seni.jpg") center/cover;
-min-height:100vh;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Segoe UI',sans-serif;
+height:100vh;
+background:url("gambar-seni.jpg") no-repeat center center fixed;
+background-size:cover;
 display:flex;
 justify-content:center;
 align-items:center;
 }
 
-body::before{
-content:"";
-position:fixed;
-inset:0;
-pointer-events:none;
+.container{
+width:90%;
+max-width:700px;
+padding:40px;
+border-radius:20px;
+background:rgba(0,0,0,0.6);
+color:white;
+text-align:center;
+box-shadow:0 20px 50px rgba(0,0,0,0.4);
 }
 
-body.ungu::before{background:rgba(120,0,255,.3);}
-body.biru::before{background:rgba(0,140,255,.3);}
-body.pink::before{background:rgba(255,0,120,.3);}
-body.hijau::before{background:rgba(0,180,90,.3);}
+#passage{
+margin-bottom:20px;
+line-height:1.6;
+font-size:15px;
+}
 
-.container{
-background:white;
-padding:25px;
-max-width:700px;
-border-radius:15px;
-text-align:center;
-z-index:1;
+#question{
+margin-bottom:20px;
 }
 
 button{
-padding:10px 15px;
-margin:5px;
+width:100%;
+padding:12px;
+margin:8px 0;
 border:none;
-border-radius:8px;
+border-radius:10px;
+background:#6c5ce7;
+color:white;
+font-size:15px;
 cursor:pointer;
-font-weight:bold;
+transition:0.3s;
 }
 
-.timer{
+button:hover{
+background:#4834d4;
+transform:scale(1.05);
+}
+
+.timer-wrapper{
 position:fixed;
 top:20px;
 right:20px;
-width:80px;
-height:80px;
-background:#ff4d4d;
-color:white;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:24px;
+width:90px;
+height:90px;
+}
+
+.timer-wrapper svg{
+position:absolute;
+top:0;
+left:0;
+}
+
+#timerText{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 font-weight:bold;
+font-size:20px;
+color:black;
 }
