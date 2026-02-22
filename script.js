@@ -38,7 +38,19 @@ answer:0
 ];
 
 function startQuiz(){
-document.querySelector("button").style.display = "none";
+
+document.getElementById("startBtn").style.display = "none";
+
+currentIndex=0;
+score=0;
+answered=0;
+timeLeft=30;
+
+document.getElementById("timer").textContent=timeLeft;
+
+startTimer();
+showQuestion();
+}
 
 currentIndex=0;
 score=0;
