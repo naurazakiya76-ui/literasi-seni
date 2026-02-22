@@ -135,6 +135,11 @@ const j=Math.floor(Math.random()*(i+1));
 }
 
 function startQuiz(){
+
+document.getElementById("startScreen").style.display="none";
+document.querySelector(".container").style.display="block";
+document.querySelector(".timer-wrapper").style.display="block";
+
 shuffle(questions);
 showQuestion();
 startTimer();
