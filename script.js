@@ -1,44 +1,33 @@
-let currentIndex = 0;
-let score = 0;
-let answered = 0;
-let timeLeft = 30;
-let timerInterval;
-function shuffleQuestions(array){
-for(let i = array.length - 1; i > 0; i--){
-const j = Math.floor(Math.random() * (i + 1));
-[array[i], array[j]] = [array[j], array[i]];
-}
-}
 const questions = [
 {
-passage:"Batik tulis dibuat menggunakan canting dan malam panas.",
-question:"Nilai utama dalam membatik adalah...",
-options:["Ketelitian","Kecepatan","Persaingan","Produksi massal"],
-answer:0
-},
-{
-passage:"Gerabah dibuat dari tanah liat yang dibakar.",
-question:"Tujuan pembakaran gerabah adalah...",
-options:["Mewarnai","Mengeraskan","Menghias","Mempercepat"],
+passage:"Seni kriya adalah cabang seni rupa yang mengutamakan keterampilan tangan dan memiliki nilai fungsi.",
+question:"Apa ciri utama seni kriya?",
+options:["Tidak memiliki fungsi","Mengutamakan keterampilan tangan","Hanya untuk pajangan","Berbasis digital"],
 answer:1
 },
 {
-passage:"Anyaman bambu digunakan untuk membuat keranjang.",
-question:"Keunggulan bambu adalah...",
-options:["Mahal","Sulit dibentuk","Ramah lingkungan","Berat"],
+passage:"Batik merupakan warisan budaya Indonesia yang dibuat dengan teknik perintangan malam.",
+question:"Teknik utama dalam pembuatan batik adalah...",
+options:["Mengukir","Mencetak","Perintangan malam","Melukis digital"],
 answer:2
 },
 {
-passage:"Ukiran kayu tradisional memiliki nilai filosofis.",
-question:"Fungsi simbol dalam ukiran adalah...",
-options:["Dekorasi biasa","Nilai filosofis","Agar mahal","Ekspor"],
+passage:"Keramik dibuat dari tanah liat yang dibentuk lalu dibakar.",
+question:"Tujuan pembakaran pada keramik adalah...",
+options:["Memberi warna","Mengeraskan","Menghias","Mendinginkan"],
 answer:1
 },
 {
-passage:"Tenun dibuat dengan menyilangkan benang.",
-question:"Nilai yang dipelajari dari menenun adalah...",
-options:["Kesabaran","Kekuatan","Kecepatan","Kompetisi"],
-answer:0
+passage:"Anyaman dibuat dengan teknik menyilang bahan seperti rotan atau bambu.",
+question:"Teknik dasar anyaman adalah...",
+options:["Menjahit","Menyilang","Melipat","Menggambar"],
+answer:1
+},
+{
+passage:"Ukiran Jepara terkenal dengan detail dan kehalusannya.",
+question:"Keunggulan ukiran Jepara terletak pada...",
+options:["Beratnya","Warnanya","Detail halus","Bahannya plastik"],
+answer:2
 },
 {
 passage:"Songket adalah kain tradisional yang dihiasi benang emas atau perak dan sering digunakan dalam acara adat.",
@@ -132,35 +121,67 @@ answer:0
 }
 ];
 
+let currentIndex = 0;
+let score = 0;
+let timeLeft = 30;
+let timerInterval;
+
+function shuffle(array){
+for(let i=array.length-1;i>0;i--){
+const j=Math.floor(Math.random()*(i+1));
+[array[i],array[j]]=[array[j],array[i]];
+}
+}
 
 function startQuiz(){
-
-document.getElementById("startBtn").style.display = "none";
-
-currentIndex = 0;
-score = 0;
-answered = 0;
-timeLeft = 30;
-
-document.getElementById("timer").textContent = timeLeft;
-shuffleQuestions(questions);
-startTimer();
+shuffle(questions);
 showQuestion();
+startTimer();
+}
+
+function showQuestion(){
+const q = questions[currentIndex];
+
+document.getElementById("passage").textContent = q.passage;
+document.getElementById("question").textContent = q.question;
+
+const optionsDiv = document.getElementById("options");
+optionsDiv.innerHTML="";
+
+q.options.forEach((opt,index)=>{
+const btn = document.createElement("button");
+btn.textContent = opt;
+btn.onclick = ()=>selectAnswer(index);
+optionsDiv.appendChild(btn);
+});
+
+document.getElementById("progress").textContent =
+"Soal "+(currentIndex+1);
+}
+
+function selectAnswer(index){
+if(index === questions[currentIndex].answer){
+score++;
+}
+currentIndex++;
+if(currentIndex < questions.length){
+showQuestion();
+}else{
+finishQuiz();
+}
 }
 
 function startTimer(){
-
 const circle = document.getElementById("progressCircle");
 const total = 30;
 const circumference = 251;
 
 timerInterval = setInterval(()=>{
-
 timeLeft--;
 
 document.getElementById("timerText").textContent = timeLeft;
 
-let offset = circumference - (timeLeft / total) * circumference;
+let offset = circumference - (timeLeft/total)*circumference;
 circle.style.strokeDashoffset = offset;
 
 if(timeLeft <= 0){
@@ -171,44 +192,10 @@ finishQuiz();
 },1000);
 }
 
-const q=questions[currentIndex];
-
-document.getElementById("passage").textContent=q.passage;
-document.getElementById("question").textContent=q.question;
-
-const optionsDiv=document.getElementById("options");
-optionsDiv.innerHTML="";
-
-q.options.forEach((option,i)=>{
-const btn=document.createElement("button");
-btn.textContent=option;
-btn.onclick=()=>selectAnswer(i);
-optionsDiv.appendChild(btn);
-});
-
-document.getElementById("progress").textContent=
-"Soal dijawab: "+answered;
-}
-
-function selectAnswer(selected){
-answered++;
-
-if(selected===questions[currentIndex].answer){
-score++;
-}
-
-currentIndex++;
-showQuestion();
-}
-
 function finishQuiz(){
 clearInterval(timerInterval);
-
-document.querySelector(".container").innerHTML=`
-<h2>Waktu Habis!</h2>
-<p>Total dijawab: ${answered}</p>
-<p>Jawaban benar: ${score}</p>
-<p>Skor akhir: ${score} poin</p>
-<button onclick="location.reload()">Main Lagi</button>
-`;
+document.querySelector(".container").innerHTML =
+"<h2>Kuis Selesai</h2><p>Skor kamu: "+score+"</p>";
 }
+
+startQuiz();
