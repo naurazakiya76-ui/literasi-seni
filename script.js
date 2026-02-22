@@ -158,8 +158,7 @@ if(currentIndex >= questions.length){
 currentIndex = 0;
 }
 
-showQuestion()const q = questions[Math.floor(Math.random()*questions.length)];;
-}
+showQuestion()
 
 currentIndex++;
 
