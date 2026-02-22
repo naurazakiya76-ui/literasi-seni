@@ -127,6 +127,11 @@ let score = 0;
 let timeLeft = 30;
 let timerInterval;
 
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const resultScreen = document.getElementById("resultScreen");
+const timerWrapper = document.querySelector(".timer-wrapper");
+
 function shuffle(array){
 for(let i=array.length-1;i>0;i--){
 const j=Math.floor(Math.random()*(i+1));
@@ -135,18 +140,21 @@ const j=Math.floor(Math.random()*(i+1));
 }
 
 function startQuiz(){
-
-document.getElementById("startScreen").style.display="none";
-document.querySelector(".container").style.display="block";
-document.querySelector(".timer-wrapper").style.display="block";
+currentIndex = 0;
+score = 0;
+timeLeft = 30;
 
 shuffle(questions);
+
+startScreen.classList.remove("active");
+quizScreen.classList.add("active");
+timerWrapper.classList.add("active");
+
 showQuestion();
 startTimer();
 }
 
 function showQuestion(){
-
 const q = questions[currentIndex];
 
 document.getElementById("passage").textContent = q.passage;
@@ -158,16 +166,15 @@ optionsDiv.innerHTML="";
 q.options.forEach((opt,index)=>{
 const btn = document.createElement("button");
 btn.textContent = opt;
-btn.onclick = function(){ selectAnswer(index); };
+btn.onclick = ()=>selectAnswer(index);
 optionsDiv.appendChild(btn);
 });
 
 document.getElementById("progress").textContent =
-"Soal " + (currentIndex+1);
+"Soal " + (currentIndex+1) + " dari " + questions.length;
 }
 
 function selectAnswer(index){
-
 if(index === questions[currentIndex].answer){
 score++;
 }
@@ -182,13 +189,11 @@ finishQuiz();
 }
 
 function startTimer(){
-
 const circle = document.getElementById("progressCircle");
 const total = 30;
 const circumference = 283;
 
-timerInterval = setInterval(function(){
-
+timerInterval = setInterval(()=>{
 timeLeft--;
 document.getElementById("timerText").textContent = timeLeft;
 
@@ -198,14 +203,21 @@ circle.style.strokeDashoffset = offset;
 if(timeLeft <= 0){
 finishQuiz();
 }
-
 },1000);
 }
 
 function finishQuiz(){
-
 clearInterval(timerInterval);
 
-document.querySelector(".container").innerHTML =
-"<h1>Kuis Selesai</h1><p>Skor kamu: "+score+"</p>";
+quizScreen.classList.remove("active");
+timerWrapper.classList.remove("active");
+resultScreen.classList.add("active");
+
+document.getElementById("finalScore").textContent =
+"Skor Kamu: " + score + " / " + questions.length;
+}
+
+function restartQuiz(){
+resultScreen.classList.remove("active");
+startScreen.classList.add("active");
 }
