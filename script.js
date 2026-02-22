@@ -121,6 +121,8 @@ answer:0
 }
 ];
 
+
+
 let currentIndex = 0;
 let score = 0;
 let timeLeft = 30;
@@ -174,11 +176,10 @@ finishQuiz();
 function startTimer(){
 const circle = document.getElementById("progressCircle");
 const total = 30;
-const circumference = 251;
+const circumference = 283;
 
 timerInterval = setInterval(()=>{
 timeLeft--;
-
 document.getElementById("timerText").textContent = timeLeft;
 
 let offset = circumference - (timeLeft/total)*circumference;
@@ -195,7 +196,7 @@ finishQuiz();
 function finishQuiz(){
 clearInterval(timerInterval);
 document.querySelector(".container").innerHTML =
-"<h2>Kuis Selesai</h2><p>Skor kamu: "+score+"</p>";
+"<h1>Kuis Selesai</h1><p>Skor kamu: "+score+"</p>";
 }
 
 startQuiz();
