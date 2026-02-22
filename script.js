@@ -152,9 +152,10 @@ function startTimer(){
 
 const circle = document.getElementById("progressCircle");
 const total = 30;
-const circumference = 220;
+const circumference = 251;
 
 timerInterval = setInterval(()=>{
+
 timeLeft--;
 
 document.getElementById("timerText").textContent = timeLeft;
@@ -166,13 +167,8 @@ if(timeLeft <= 0){
 clearInterval(timerInterval);
 finishQuiz();
 }
-},1000);
-}
 
-function showQuestion(){
-if(currentIndex>=questions.length){
-finishQuiz();
-return;
+},1000);
 }
 
 const q=questions[currentIndex];
