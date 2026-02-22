@@ -65,7 +65,26 @@ transform:scale(1.02);
 </head>
 
 <body>
+<div class="timer-wrapper">
+  <svg width="90" height="90">
+    <circle cx="45" cy="45" r="40"
+      stroke="#eee"
+      stroke-width="8"
+      fill="none"/>
+    <circle id="progressCircle"
+      cx="45"
+      cy="45"
+      r="40"
+      stroke="crimson"
+      stroke-width="8"
+      fill="none"
+      stroke-dasharray="251"
+      stroke-dashoffset="0"
+      transform="rotate(-90 45 45)"/>
+  </svg>
 
+  <div id="timerText">30</div>
+</div>
 <div class="timer" id="timer">30</div>
 
 <div class="container">
