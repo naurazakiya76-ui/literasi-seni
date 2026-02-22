@@ -122,7 +122,6 @@ answer:0
 ];
 
 
-
 let currentIndex = 0;
 let score = 0;
 let timeLeft = 30;
