@@ -7,7 +7,12 @@
 </head>
 <body>
 
-<div class="timer-wrapper">
+<div class="start-screen" id="startScreen">
+  <h1>Kuis Seni Kriya</h1>
+  <button onclick="startQuiz()">Mulai Quiz</button>
+</div>
+
+<div class="timer-wrapper" style="display:none;">
   <svg width="100" height="100">
     <circle cx="50" cy="50" r="45"
       stroke="#eee"
@@ -27,7 +32,7 @@
   <div id="timerText">30</div>
 </div>
 
-<div class="container">
+<div class="container" style="display:none;">
   <p id="passage"></p>
   <h2 id="question"></h2>
   <div id="options"></div>
