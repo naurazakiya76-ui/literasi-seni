@@ -153,6 +153,16 @@ score++;
 
 currentIndex++;
 
+// kalau sudah sampai soal terakhir → ulang ke awal
+if(currentIndex >= questions.length){
+currentIndex = 0;
+}
+
+showQuestion();
+}
+
+currentIndex++;
+
 if(currentIndex < questions.length){
 showQuestion();
 }else{
