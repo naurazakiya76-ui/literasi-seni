@@ -53,7 +53,7 @@ answered = 0;
 timeLeft = 30;
 
 document.getElementById("timer").textContent = timeLeft;
-
+shuffleQuestions(questions);
 startTimer();
 showQuestion();
 }
