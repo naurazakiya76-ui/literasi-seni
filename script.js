@@ -1,128 +1,95 @@
-// ===============================
-// VARIABEL GLOBAL
-// ===============================
-
 let currentIndex = 0;
 let score = 0;
 let answered = 0;
 let timeLeft = 30;
 let timerInterval;
 
-// ===============================
-// BANK SOAL (CONTOH 5 DULU)
-// NANTI BISA TAMBAH SAMPAI 30
-// ===============================
-
 const questions = [
-
 {
-passage: "Batik tulis dibuat menggunakan canting dan malam panas. Proses ini membutuhkan ketelitian tinggi.",
-question: "Nilai utama dalam proses membatik adalah...",
-options: ["Ketelitian","Kecepatan","Persaingan","Produksi massal"],
-answer: 0
+passage:"Batik tulis dibuat menggunakan canting dan malam panas.",
+question:"Nilai utama dalam membatik adalah...",
+options:["Ketelitian","Kecepatan","Persaingan","Produksi massal"],
+answer:0
 },
-
 {
-passage: "Gerabah dibuat dari tanah liat yang dibakar pada suhu tinggi.",
-question: "Tujuan pembakaran gerabah adalah...",
-options: ["Mewarnai","Mengeraskan","Menghias","Mempercepat"],
-answer: 1
+passage:"Gerabah dibuat dari tanah liat yang dibakar.",
+question:"Tujuan pembakaran gerabah adalah...",
+options:["Mewarnai","Mengeraskan","Menghias","Mempercepat"],
+answer:1
 },
-
 {
-passage: "Anyaman bambu banyak digunakan untuk membuat keranjang.",
-question: "Keunggulan bambu adalah...",
-options: ["Mahal","Sulit dibentuk","Ramah lingkungan","Berat"],
-answer: 2
+passage:"Anyaman bambu digunakan untuk membuat keranjang.",
+question:"Keunggulan bambu adalah...",
+options:["Mahal","Sulit dibentuk","Ramah lingkungan","Berat"],
+answer:2
 },
-
 {
-passage: "Ukiran kayu tradisional memiliki nilai filosofis.",
-question: "Fungsi simbol dalam ukiran adalah...",
-options: ["Dekorasi biasa","Nilai filosofis","Agar mahal","Ekspor"],
-answer: 1
+passage:"Ukiran kayu tradisional memiliki nilai filosofis.",
+question:"Fungsi simbol dalam ukiran adalah...",
+options:["Dekorasi biasa","Nilai filosofis","Agar mahal","Ekspor"],
+answer:1
 },
-
 {
-passage: "Tenun dibuat dengan menyilangkan benang secara teratur.",
-question: "Nilai yang dipelajari dari menenun adalah...",
-options: ["Kesabaran","Kekuatan","Kecepatan","Kompetisi"],
-answer: 0
+passage:"Tenun dibuat dengan menyilangkan benang.",
+question:"Nilai yang dipelajari dari menenun adalah...",
+options:["Kesabaran","Kekuatan","Kecepatan","Kompetisi"],
+answer:0
 }
-
 ];
 
-// ===============================
-// FUNGSI MULAI KUIS
-// ===============================
+function startQuiz(){
+currentIndex=0;
+score=0;
+answered=0;
+timeLeft=30;
 
-function startQuiz() {
-currentIndex = 0;
-score = 0;
-answered = 0;
-timeLeft = 30;
-
-document.getElementById("timer").textContent = timeLeft;
+document.getElementById("timer").textContent=timeLeft;
 
 startTimer();
 showQuestion();
 }
 
-// ===============================
-// TIMER GLOBAL 30 DETIK
-// ===============================
-
-function startTimer() {
-timerInterval = setInterval(() => {
+function startTimer(){
+timerInterval=setInterval(()=>{
 timeLeft--;
-document.getElementById("timer").textContent = timeLeft;
+document.getElementById("timer").textContent=timeLeft;
 
-if (timeLeft <= 0) {
+if(timeLeft<=0){
 clearInterval(timerInterval);
 finishQuiz();
 }
-}, 1000);
+},1000);
 }
 
-// ===============================
-// TAMPILKAN SOAL
-// ===============================
-
-function showQuestion() {
-
-if (currentIndex >= questions.length) {
+function showQuestion(){
+if(currentIndex>=questions.length){
 finishQuiz();
 return;
 }
 
-const q = questions[currentIndex];
+const q=questions[currentIndex];
 
-document.getElementById("passage").textContent = q.passage;
-document.getElementById("question").textContent = q.question;
+document.getElementById("passage").textContent=q.passage;
+document.getElementById("question").textContent=q.question;
 
-const optionsDiv = document.getElementById("options");
-optionsDiv.innerHTML = "";
+const optionsDiv=document.getElementById("options");
+optionsDiv.innerHTML="";
 
-q.options.forEach((option, i) => {
-const btn = document.createElement("button");
-btn.textContent = option;
-btn.onclick = () => selectAnswer(i);
+q.options.forEach((option,i)=>{
+const btn=document.createElement("button");
+btn.textContent=option;
+btn.onclick=()=>selectAnswer(i);
 optionsDiv.appendChild(btn);
 });
 
-document.getElementById("progress").textContent =
-"Soal dijawab: " + answered;
+document.getElementById("progress").textContent=
+"Soal dijawab: "+answered;
 }
 
-// ===============================
-// PILIH JAWABAN
-// ===============================
-
-function selectAnswer(selected) {
-
+function selectAnswer(selected){
 answered++;
 
-if (selected === questions[currentIndex].answer) {
+if(selected===questions[currentIndex].answer){
 score++;
 }
 
@@ -130,15 +97,10 @@ currentIndex++;
 showQuestion();
 }
 
-// ===============================
-// AKHIR KUIS
-// ===============================
-
-function finishQuiz() {
-
+function finishQuiz(){
 clearInterval(timerInterval);
 
-document.querySelector(".container").innerHTML = `
+document.querySelector(".container").innerHTML=`
 <h2>Waktu Habis!</h2>
 <p>Total dijawab: ${answered}</p>
 <p>Jawaban benar: ${score}</p>
