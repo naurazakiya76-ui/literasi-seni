@@ -1,78 +1,80 @@
 const theme = localStorage.getItem("theme");
-if(theme) document.body.classList.add(theme);
+if (theme) document.body.classList.add(theme);
 
-let waktu = 30;          // mulai dari 30
-let timer = null;        // supaya tidak double
+/* =======================
+   VARIABEL GLOBAL
+======================= */
+let waktu = 30;
 let benar = 0;
 let dijawab = 0;
 let skor = 0;
 let used = [];
+let timerStarted = false; // kunci agar tidak dobel
 
-/* =========================
+/* =======================
    BANK 30 SOAL
-========================= */
+======================= */
 const questions = [];
 
-for(let i=1;i<=30;i++){
+for (let i = 1; i <= 30; i++) {
 questions.push({
-passage:"Seni kriya ke-"+i+" menjelaskan bahwa karya kriya memiliki nilai estetika sekaligus fungsi praktis dalam kehidupan masyarakat. Proses pembuatannya membutuhkan ketelitian, kesabaran, dan pemahaman budaya lokal.",
-question:"Apa karakter utama seni kriya berdasarkan bacaan tersebut?",
-options:[
+passage: "Seni kriya ke-" + i + " menjelaskan bahwa karya kriya memiliki nilai estetika sekaligus fungsi praktis dalam kehidupan masyarakat. Proses pembuatannya membutuhkan ketelitian dan pemahaman budaya lokal.",
+question: "Apa karakter utama seni kriya berdasarkan bacaan tersebut?",
+options: [
 "Mengutamakan fungsi dan estetika",
 "Hanya untuk dekorasi",
 "Tidak memiliki nilai budaya",
 "Produk pabrik modern"
 ],
-answer:0
+answer: 0
 });
 }
 
-/* =========================
-   TIMER GLOBAL (HANYA SEKALI)
-========================= */
-function startTimer(){
+/* =======================
+   TIMER GLOBAL SEKALI SAJA
+======================= */
+function startTimer() {
 
-// kalau sudah ada timer jangan buat lagi
-if(timer !== null) return;
+if (timerStarted) return; // cegah dobel
+timerStarted = true;
 
 document.getElementById("timer").innerText = waktu;
 
-timer = setInterval(() => {
+const countdown = setInterval(() => {
 
 waktu--;
 document.getElementById("timer").innerText = waktu;
 
-if(waktu <= 0){
-clearInterval(timer);
+if (waktu <= 0) {
+clearInterval(countdown);
 endQuiz();
 }
 
-},1000);
-
+}, 1000);
 }
 
-/* =========================
-   ACAK SOAL TANPA ULANG
-========================= */
-function randomQ(){
+/* =======================
+   ACAK TANPA ULANG
+======================= */
+function randomQ() {
 
-if(used.length === questions.length){
+if (used.length === questions.length) {
 used = [];
 }
 
-let i;
-do{
-i = Math.floor(Math.random()*questions.length);
-}while(used.includes(i));
+let index;
+do {
+index = Math.floor(Math.random() * questions.length);
+} while (used.includes(index));
 
-used.push(i);
-return questions[i];
+used.push(index);
+return questions[index];
 }
 
-/* =========================
-   LOAD SOAL (TIDAK SENTUH TIMER)
-========================= */
-function load(){
+/* =======================
+   LOAD SOAL
+======================= */
+function loadQuestion() {
 
 let q = randomQ();
 
@@ -82,42 +84,43 @@ document.getElementById("question").innerText = q.question;
 let opt = document.getElementById("options");
 opt.innerHTML = "";
 
-q.options.forEach((o,i)=>{
-let b = document.createElement("button");
-b.innerText = o;
+q.options.forEach((text, i) => {
 
-b.onclick = () => {
+let btn = document.createElement("button");
+btn.innerText = text;
+
+btn.onclick = () => {
 
 dijawab++;
 
-if(i === q.answer){
+if (i === q.answer) {
 benar++;
 skor += 10;
 }
 
-load(); // ganti soal tanpa reset timer
-
+loadQuestion(); // ganti soal TANPA sentuh timer
 };
 
-opt.appendChild(b);
+opt.appendChild(btn);
 });
-
 }
 
-/* =========================
+/* =======================
    AKHIR KUIS
-========================= */
-function endQuiz(){
+======================= */
+function endQuiz() {
 
 localStorage.setItem("benar", benar);
 localStorage.setItem("dijawab", dijawab);
 localStorage.setItem("skor", skor);
 
-location.href="result.html";
+location.href = "result.html";
 }
 
-/* =========================
-   MULAI
-========================= */
-startTimer();  // timer dipanggil SEKALI
-load();        // soal pertama
+/* =======================
+   JALANKAN SEKALI
+======================= */
+window.onload = function () {
+startTimer();
+loadQuestion();
+};
