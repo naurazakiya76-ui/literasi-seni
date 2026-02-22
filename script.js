@@ -1,139 +1,45 @@
-
-/* ===== TEMA WARNA ===== */
 const theme = localStorage.getItem("theme");
-if (theme) document.body.classList.add(theme);
+if(theme) document.body.classList.add(theme);
 
-/* ===== VARIABEL ===== */
-let score = 0;
-let correctCount = 0;
-let time = 0;
-let timerInterval;
+let waktu = 30;
+let timer;
+let benar = 0;
+let dijawab = 0;
+let skor = 0;
 let used = [];
-let currentQ;
 
-/* ===== BANK SOAL (15 SOAL) ===== */
-const questions = [
+const questions = [];
 
-{
-passage:"Seni kriya adalah seni yang mengutamakan keterampilan tangan dalam pembuatannya.",
-question:"Ciri utama seni kriya adalah …",
-options:["Teknologi tinggi","Keterampilan tangan","Musik","Tari"],
-answer:1
-},
-
-{
-passage:"Batik merupakan warisan budaya Indonesia yang diakui UNESCO.",
-question:"Alat utama membatik tulis adalah …",
-options:["Kuas","Canting","Pisau","Pahat"],
-answer:1
-},
-
-{
-passage:"Anyaman dibuat dengan teknik menyilang bahan secara teratur.",
-question:"Bahan anyaman yang umum adalah …",
-options:["Bambu","Besi","Kaca","Plastik"],
+/* ====== BANK 30 SOAL ====== */
+for(let i=1;i<=30;i++){
+questions.push({
+passage:"Seni kriya ke-"+i+" menjelaskan bahwa karya kriya memiliki nilai estetika sekaligus fungsi praktis dalam kehidupan masyarakat. Proses pembuatannya membutuhkan ketelitian, kesabaran, dan pemahaman budaya lokal.",
+question:"Apa karakter utama seni kriya berdasarkan bacaan tersebut?",
+options:[
+"Mengutamakan fungsi dan estetika",
+"Hanya untuk dekorasi",
+"Tidak memiliki nilai budaya",
+"Produk pabrik modern"
+],
 answer:0
-},
-
-{
-passage:"Gerabah dibuat dari tanah liat yang dibentuk lalu dibakar.",
-question:"Gerabah termasuk seni kriya karena …",
-options:["Dicetak mesin","Buatan tangan","Digital","Modern"],
-answer:1
-},
-
-{
-passage:"Seni kriya memiliki nilai fungsi selain keindahan.",
-question:"Nilai fungsi berarti …",
-options:["Untuk pajangan saja","Memiliki kegunaan","Tidak dipakai","Abstrak"],
-answer:1
-},
-
-{
-passage:"Ukiran kayu banyak ditemukan di Jepara.",
-question:"Ukiran termasuk seni kriya karena …",
-options:["Dicat","Dipahat tangan","Dicetak","Difoto"],
-answer:1
-},
-
-{
-passage:"Kerajinan rotan sering dibuat menjadi kursi dan meja.",
-question:"Rotan dipilih karena …",
-options:["Rapuh","Kuat & lentur","Mahal","Berat"],
-answer:1
-},
-
-{
-passage:"Tenun adalah teknik membuat kain secara tradisional.",
-question:"Tenun dibuat dengan cara …",
-options:["Dijahit","Disilangkan benang","Dilem","Dilukis"],
-answer:1
-},
-
-{
-passage:"Topeng tradisional dibuat dengan seni kriya.",
-question:"Bahan topeng biasanya …",
-options:["Kayu","Kertas","Air","Batu bata"],
-answer:0
-},
-
-{
-passage:"Keramik dibuat dari tanah liat lalu dibakar.",
-question:"Proses pembakaran bertujuan untuk …",
-options:["Mewarnai","Mengeraskan","Melembutkan","Menghias"],
-answer:1
-},
-
-{
-passage:"Seni kriya sering mencerminkan budaya daerah.",
-question:"Artinya seni kriya …",
-options:["Tidak budaya","Mengandung nilai budaya","Modern saja","Asing"],
-answer:1
-},
-
-{
-passage:"Mozaik dibuat dari potongan kecil bahan.",
-question:"Mozaik disusun dari …",
-options:["Kertas utuh","Potongan kecil","Cat air","Benang"],
-answer:1
-},
-
-{
-passage:"Kerajinan kulit dibuat menjadi tas atau sepatu.",
-question:"Bahan dasarnya adalah …",
-options:["Kulit hewan","Kain","Plastik","Kaca"],
-answer:0
-},
-
-{
-passage:"Miniatur rumah adat termasuk seni kriya.",
-question:"Miniatur berarti …",
-options:["Besar","Kecil tiruan","Asli","Modern"],
-answer:1
-},
-
-{
-passage:"Seni kriya membantu melestarikan budaya.",
-question:"Pelestarian berarti …",
-options:["Menghilangkan","Menjaga","Menjual","Membuang"],
-answer:1
+});
 }
 
-];
-
-/* ===== TIMER ===== */
+/* TIMER GLOBAL */
 function startTimer(){
-time=0;
-document.getElementById("timer").innerText="Waktu: 0";
-timerInterval=setInterval(()=>{
-time++;
-document.getElementById("timer").innerText="Waktu: "+time;
+timer=setInterval(()=>{
+waktu--;
+document.getElementById("timer").innerText=waktu;
+
+if(waktu<=0){
+clearInterval(timer);
+endQuiz();
+}
 },1000);
 }
 
-/* ===== AMBIL SOAL ACAK ===== */
-function randomQuestion(){
-if(used.length===questions.length) used=[];
+/* ACAK SOAL */
+function randomQ(){
 let i;
 do{
 i=Math.floor(Math.random()*questions.length);
@@ -142,41 +48,38 @@ used.push(i);
 return questions[i];
 }
 
-/* ===== TAMPILKAN SOAL ===== */
-function loadQuestion(){
-startTimer();
-currentQ=randomQuestion();
+/* LOAD SOAL */
+function load(){
+let q = randomQ();
 
-document.getElementById("passage").innerText=currentQ.passage;
-document.getElementById("question").innerText=currentQ.question;
+document.getElementById("passage").innerText=q.passage;
+document.getElementById("question").innerText=q.question;
 
-const opt=document.getElementById("options");
+let opt=document.getElementById("options");
 opt.innerHTML="";
 
-currentQ.options.forEach((o,i)=>{
+q.options.forEach((o,i)=>{
 let b=document.createElement("button");
 b.innerText=o;
-b.onclick=()=>check(i);
+b.onclick=()=>{
+dijawab++;
+if(i===q.answer){
+benar++;
+skor+=10;
+}
+load();
+};
 opt.appendChild(b);
 });
 }
 
-/* ===== CEK JAWABAN ===== */
-function check(i){
-clearInterval(timerInterval);
-
-if(i===currentQ.answer){
-correctCount++;
-score += time<=180 ? 25 : 15;
-}
-
-if(correctCount>=10){
-localStorage.setItem("finalScore",score);
+/* AKHIR */
+function endQuiz(){
+localStorage.setItem("benar", benar);
+localStorage.setItem("dijawab", dijawab);
+localStorage.setItem("skor", skor);
 location.href="result.html";
-}else{
-loadQuestion();
-}
 }
 
-/* ===== MULAI ===== */
-loadQuestion();
+startTimer();
+load();
