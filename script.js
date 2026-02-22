@@ -1,24 +1,31 @@
 const theme = localStorage.getItem("theme");
 if (theme) document.body.classList.add(theme);
 
-/* =======================
-   VARIABEL GLOBAL
-======================= */
-let waktu = 30;
+/* =========================
+   SET TIMER GLOBAL REAL TIME
+========================= */
+
+// kalau belum ada waktu mulai, set sekarang
+if (!localStorage.getItem("startTime")) {
+localStorage.setItem("startTime", Date.now());
+}
+
+const TOTAL_TIME = 30; // 30 detik
+
 let benar = 0;
 let dijawab = 0;
 let skor = 0;
 let used = [];
-let timerStarted = false; // kunci agar tidak dobel
 
-/* =======================
+/* =========================
    BANK 30 SOAL
-======================= */
+========================= */
+
 const questions = [];
 
 for (let i = 1; i <= 30; i++) {
 questions.push({
-passage: "Seni kriya ke-" + i + " menjelaskan bahwa karya kriya memiliki nilai estetika sekaligus fungsi praktis dalam kehidupan masyarakat. Proses pembuatannya membutuhkan ketelitian dan pemahaman budaya lokal.",
+passage: "Seni kriya ke-" + i + " menjelaskan bahwa karya kriya memiliki nilai estetika dan fungsi praktis dalam kehidupan masyarakat serta mencerminkan identitas budaya.",
 question: "Apa karakter utama seni kriya berdasarkan bacaan tersebut?",
 options: [
 "Mengutamakan fungsi dan estetika",
@@ -30,51 +37,57 @@ answer: 0
 });
 }
 
-/* =======================
-   TIMER GLOBAL SEKALI SAJA
-======================= */
-function startTimer() {
+/* =========================
+   TIMER GLOBAL BERDASARKAN REAL TIME
+========================= */
 
-if (timerStarted) return; // cegah dobel
-timerStarted = true;
+function updateTimer() {
 
-document.getElementById("timer").innerText = waktu;
+let startTime = parseInt(localStorage.getItem("startTime"));
+let now = Date.now();
+let elapsed = Math.floor((now - startTime) / 1000);
+let remaining = TOTAL_TIME - elapsed;
 
-const countdown = setInterval(() => {
+document.getElementById("timer").innerText = remaining > 0 ? remaining : 0;
 
-waktu--;
-document.getElementById("timer").innerText = waktu;
-
-if (waktu <= 0) {
-clearInterval(countdown);
+if (remaining <= 0) {
 endQuiz();
 }
-
-}, 1000);
 }
 
-/* =======================
-   ACAK TANPA ULANG
-======================= */
+setInterval(updateTimer, 200);
+
+/* =========================
+   ACAK SOAL
+========================= */
+
 function randomQ() {
 
-if (used.length === questions.length) {
-used = [];
-}
+if (used.length === questions.length) used = [];
 
-let index;
+let i;
 do {
-index = Math.floor(Math.random() * questions.length);
-} while (used.includes(index));
+i = Math.floor(Math.random() * questions.length);
+} while (used.includes(i));
 
-used.push(index);
-return questions[index];
+used.push(i);
+return questions[i];
 }
 
-/* =======================
+/* =========================
    LOAD SOAL
-======================= */
+========================= */
+
 function loadQuestion() {
+
+let startTime = parseInt(localStorage.getItem("startTime"));
+let now = Date.now();
+let elapsed = Math.floor((now - startTime) / 1000);
+
+if (elapsed >= TOTAL_TIME) {
+endQuiz();
+return;
+}
 
 let q = randomQ();
 
@@ -99,16 +112,20 @@ skor += 10;
 }
 
 loadQuestion(); // ganti soal TANPA sentuh timer
+
 };
 
 opt.appendChild(btn);
 });
 }
 
-/* =======================
+/* =========================
    AKHIR KUIS
-======================= */
+========================= */
+
 function endQuiz() {
+
+localStorage.removeItem("startTime"); // reset untuk main lagi
 
 localStorage.setItem("benar", benar);
 localStorage.setItem("dijawab", dijawab);
@@ -117,10 +134,8 @@ localStorage.setItem("skor", skor);
 location.href = "result.html";
 }
 
-/* =======================
-   JALANKAN SEKALI
-======================= */
-window.onload = function () {
-startTimer();
+/* =========================
+   MULAI
+========================= */
+
 loadQuestion();
-};
