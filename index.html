@@ -1,31 +1,28 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Literasi Seni</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="container">
-<h1>Ruang Literasi Seni Kriya</h1>
-<p>Pilih tema warna sebelum mulai kuis:</p>
+<h1>Ruang Literasi Seni</h1>
 
-<button class="ungu" onclick="start('ungu')">Ungu</button>
-<button class="biru" onclick="start('biru')">Biru</button>
-<button class="pink" onclick="start('pink')">Pink</button>
-<button class="hijau" onclick="start('hijau')">Hijau</button>
-
+<h3>Pilih Tema Warna:</h3>
+<button onclick="start('ungu')">Ungu</button>
+<button onclick="start('biru')">Biru</button>
+<button onclick="start('pink')">Pink</button>
+<button onclick="start('hijau')">Hijau</button>
 </div>
 
 <script>
-function start(warna){
-localStorage.setItem("theme", warna);
-location.href = "quiz.html";
+function start(w){
+localStorage.setItem("theme", w);
+location.href="quiz.html";
 }
 </script>
 
 </body>
 </html>
-
