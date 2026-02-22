@@ -59,11 +59,20 @@ showQuestion();
 }
 
 function startTimer(){
-timerInterval=setInterval(()=>{
-timeLeft--;
-document.getElementById("timer").textContent=timeLeft;
 
-if(timeLeft<=0){
+const circle = document.getElementById("progressCircle");
+const total = 30;
+const circumference = 220;
+
+timerInterval = setInterval(()=>{
+timeLeft--;
+
+document.getElementById("timerText").textContent = timeLeft;
+
+let offset = circumference - (timeLeft / total) * circumference;
+circle.style.strokeDashoffset = offset;
+
+if(timeLeft <= 0){
 clearInterval(timerInterval);
 finishQuiz();
 }
