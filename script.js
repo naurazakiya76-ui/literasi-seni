@@ -146,6 +146,7 @@ startTimer();
 }
 
 function showQuestion(){
+
 const q = questions[currentIndex];
 
 document.getElementById("passage").textContent = q.passage;
@@ -157,19 +158,22 @@ optionsDiv.innerHTML="";
 q.options.forEach((opt,index)=>{
 const btn = document.createElement("button");
 btn.textContent = opt;
-btn.onclick = ()=>selectAnswer(index);
+btn.onclick = function(){ selectAnswer(index); };
 optionsDiv.appendChild(btn);
 });
 
 document.getElementById("progress").textContent =
-"Soal "+(currentIndex+1);
+"Soal " + (currentIndex+1);
 }
 
 function selectAnswer(index){
+
 if(index === questions[currentIndex].answer){
 score++;
 }
+
 currentIndex++;
+
 if(currentIndex < questions.length){
 showQuestion();
 }else{
@@ -178,11 +182,13 @@ finishQuiz();
 }
 
 function startTimer(){
+
 const circle = document.getElementById("progressCircle");
 const total = 30;
 const circumference = 283;
 
-timerInterval = setInterval(()=>{
+timerInterval = setInterval(function(){
+
 timeLeft--;
 document.getElementById("timerText").textContent = timeLeft;
 
@@ -190,7 +196,6 @@ let offset = circumference - (timeLeft/total)*circumference;
 circle.style.strokeDashoffset = offset;
 
 if(timeLeft <= 0){
-clearInterval(timerInterval);
 finishQuiz();
 }
 
@@ -198,9 +203,9 @@ finishQuiz();
 }
 
 function finishQuiz(){
+
 clearInterval(timerInterval);
+
 document.querySelector(".container").innerHTML =
 "<h1>Kuis Selesai</h1><p>Skor kamu: "+score+"</p>";
 }
-
-startQuiz();
