@@ -9,7 +9,7 @@ font-family:'Poppins', sans-serif;
 height:100vh;
 background:
 linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-url("https://images.unsplash.com/photo-1513475382585-d06e58bcb0f0?q=80&w=2070&auto=format&fit=crop")
+url("1.jpg")
 no-repeat center center fixed;
 background-size:cover;
 display:flex;
